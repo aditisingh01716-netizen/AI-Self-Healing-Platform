@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        AI Software Reliability & Self-Healing Platform
+    </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
+
+        <h1>
+            AI Software Reliability & Self-Healing Platform
+        </h1>
+
+        <p class="subtitle">
+
+            Real-Time Monitoring
+            •
+            AI Anomaly Detection
+            •
+            Automated Recovery
+
+        </p>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SYSTEM MONITORING
+    ====================================================== -->
+
+    <section>
+
+        <h2>System Monitoring</h2>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <h3>CPU Usage</h3>
+
+                <p id="cpu">
+                    --%
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Memory Usage</h3>
+
+                <p id="memory">
+                    --%
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Disk Usage</h3>
+
+                <p id="disk">
+                    --%
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Risk Level</h3>
+
+                <p id="risk">
+                    --
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         AI ANALYSIS
+    ====================================================== -->
+
+    <section class="panel">
+
+        <h2>
+            🤖 AI Analysis
+        </h2>
+
+
+        <div class="information">
+
+            <p>
+
+                AI Status:
+
+                <strong id="ai-status">
+                    --
+                </strong>
+
+            </p>
+
+
+            <p>
+
+                AI Anomaly Score:
+
+                <strong id="ai-score">
+                    --
+                </strong>
+
+            </p>
+
+
+            <p>
+
+                Detected Problem:
+
+                <strong id="problem">
+                    --
+                </strong>
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SERVICE HEALTH
+    ====================================================== -->
+
+    <section class="panel">
+
+        <h2>
+            ❤️ Service Health
+        </h2>
+
+
+        <p>
+
+            Service Status:
+
+            <strong id="service-health">
+                Checking...
+            </strong>
+
+        </p>
+
+
+        <p id="health-message">
+
+            Checking recovery service...
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SELF HEALING
+    ====================================================== -->
+
+    <section class="panel">
+
+        <h2>
+            🔧 Self-Healing Engine
+        </h2>
+
+
+        <button onclick="runHealing()">
+
+            Run Self-Healing Check
+
+        </button>
+
+
+        <div class="information">
+
+
+            <p>
+
+                Healing Action:
+
+                <strong id="action">
+                    --
+                </strong>
+
+            </p>
+
+
+            <p>
+
+                Recovery Status:
+
+                <strong id="recovery">
+                    --
+                </strong>
+
+            </p>
+
+
+            <p>
+
+                Recovery Message:
+
+                <strong id="recovery-message">
+                    --
+                </strong>
+
+            </p>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FAILURE SIMULATION
+    ====================================================== -->
+
+    <section class="panel">
+
+        <h2>
+            🧪 Testing & Failure Simulation
+        </h2>
+
+
+        <p>
+
+            Create a controlled test failure
+            for demonstrating the self-healing system.
+
+        </p>
+
+
+        <button
+            class="danger-button"
+            onclick="simulateFailure()">
+
+            Simulate Test Failure
+
+        </button>
+
+
+        <p id="simulation-result">
+
+            No test failure created.
+
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INCIDENT HISTORY
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="history-header">
+
+            <h2>
+                📋 Incident History
+            </h2>
+
+
+            <button onclick="loadIncidents()">
+
+                Refresh History
+
+            </button>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Timestamp</th>
+
+                        <th>CPU</th>
+
+                        <th>Memory</th>
+
+                        <th>Disk</th>
+
+                        <th>Risk</th>
+
+                        <th>Problem</th>
+
+                        <th>Action</th>
+
+                        <th>Recovery</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="incident-table">
+
+                    <tr>
+
+                        <td colspan="9">
+
+                            Loading incident history...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LAST UPDATE
+    ====================================================== -->
+
+    <section class="last-update">
+
+        Last dashboard update:
+
+        <strong id="last-update">
+            --
+        </strong>
+
+    </section>
+
+
+</div>
+
+
+
+<script>
+
+
+// ============================================================
+// UPDATE MAIN DASHBOARD
+// ============================================================
+
+async function updateDashboard() {
+
+    try {
+
+        const response =
+            await fetch("/api/analyze");
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById("cpu").innerText =
+            data.cpu + "%";
+
+
+        document.getElementById("memory").innerText =
+            data.memory + "%";
+
+
+        document.getElementById("disk").innerText =
+            data.disk + "%";
+
+
+        document.getElementById("risk").innerText =
+            data.risk;
+
+
+        document.getElementById("ai-status").innerText =
+            data.ai_status;
+
+
+        document.getElementById("ai-score").innerText =
+            Number(data.ai_score).toFixed(4);
+
+
+        document.getElementById("problem").innerText =
+            data.problem;
+
+
+        const now =
+            new Date();
+
+
+        document.getElementById("last-update").innerText =
+            now.toLocaleTimeString();
+
+
+        await updateHealth();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// ============================================================
+// SERVICE HEALTH
+// ============================================================
+
+async function updateHealth() {
+
+    try {
+
+        const response =
+            await fetch("/api/health-check");
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById(
+            "service-health"
+        ).innerText =
+            data.status;
+
+
+        document.getElementById(
+            "health-message"
+        ).innerText =
+            data.message;
+
+    }
+
+    catch (error) {
+
+        document.getElementById(
+            "service-health"
+        ).innerText =
+            "UNKNOWN";
+
+
+        document.getElementById(
+            "health-message"
+        ).innerText =
+            "Unable to check service health.";
+
+    }
+
+}
+
+
+
+// ============================================================
+// RUN SELF-HEALING
+// ============================================================
+
+async function runHealing() {
+
+    try {
+
+        document.getElementById(
+            "action"
+        ).innerText =
+            "ANALYZING...";
+
+
+        document.getElementById(
+            "recovery"
+        ).innerText =
+            "PROCESSING...";
+
+
+        const response =
+            await fetch("/api/heal");
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById(
+            "action"
+        ).innerText =
+            data.action;
+
+
+        document.getElementById(
+            "recovery"
+        ).innerText =
+            data.recovery_status;
+
+
+        document.getElementById(
+            "recovery-message"
+        ).innerText =
+            data.recovery_message;
+
+
+        await updateHealth();
+
+
+        // Refresh incident history
+        await loadIncidents();
+
+    }
+
+    catch (error) {
+
+        document.getElementById(
+            "action"
+        ).innerText =
+            "ERROR";
+
+
+        document.getElementById(
+            "recovery"
+        ).innerText =
+            "FAILED";
+
+
+        console.error(
+            "Healing error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// ============================================================
+// FAILURE SIMULATION
+// ============================================================
+
+async function simulateFailure() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/simulate-failure"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        document.getElementById(
+            "simulation-result"
+        ).innerText =
+            data.message;
+
+
+        await updateDashboard();
+
+
+        await loadIncidents();
+
+    }
+
+    catch (error) {
+
+        document.getElementById(
+            "simulation-result"
+        ).innerText =
+            "Unable to create test failure.";
+
+
+        console.error(
+            "Simulation error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// ============================================================
+// LOAD INCIDENT HISTORY
+// ============================================================
+
+async function loadIncidents() {
+
+    try {
+
+        const response =
+            await fetch("/api/incidents");
+
+
+        const incidents =
+            await response.json();
+
+
+        const table =
+            document.getElementById(
+                "incident-table"
+            );
+
+
+        // No incidents yet
+
+        if (
+            incidents.length === 0
+        ) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td colspan="9">
+
+                        No incidents recorded yet.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        // Clear existing table
+
+        table.innerHTML = "";
+
+
+
+        // Display incidents
+
+        incidents.forEach(
+            function(incident) {
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${incident.id}
+                    </td>
+
+                    <td>
+                        ${incident.timestamp}
+                    </td>
+
+                    <td>
+                        ${Number(
+                            incident.cpu
+                        ).toFixed(1)}%
+                    </td>
+
+                    <td>
+                        ${Number(
+                            incident.memory
+                        ).toFixed(1)}%
+                    </td>
+
+                    <td>
+                        ${Number(
+                            incident.disk
+                        ).toFixed(1)}%
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${incident.risk_level}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${incident.problem}
+                    </td>
+
+                    <td>
+                        ${incident.action}
+                    </td>
+
+                    <td>
+                        ${incident.recovery_status}
+                    </td>
+
+                `;
+
+
+                table.appendChild(row);
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Incident history error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// ============================================================
+// INITIAL LOAD
+// ============================================================
+
+updateDashboard();
+
+loadIncidents();
+
+
+
+// ============================================================
+// AUTOMATIC DASHBOARD REFRESH
+// ============================================================
+
+setInterval(
+    updateDashboard,
+    5000
+);
+
+
+// Refresh incident history every 10 seconds
+
+setInterval(
+    loadIncidents,
+    10000
+);
+
+
+</script>
+
+
+</body>
+
+</html>
