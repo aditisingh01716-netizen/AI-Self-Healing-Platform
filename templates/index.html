@@ -1,359 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>
-        AI Software Reliability & Self-Healing Platform
-    </title>
+    <title>AI Software Reliability Platform</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
+    <!-- HEADER -->
+    <header class="header">
+        <div>
+            <h1>AI Software Reliability Platform</h1>
+            <p>
+                AI-powered monitoring, anomaly detection and self-healing
+                system
+            </p>
+        </div>
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
-
-    <header>
-
-        <h1>
-            AI Software Reliability & Self-Healing Platform
-        </h1>
-
-        <p class="subtitle">
-
-            Real-Time Monitoring
-            •
-            AI Anomaly Detection
-            •
-            Automated Recovery
-
-        </p>
-
+        <div class="system-status">
+            <span class="status-dot"></span>
+            <span id="systemStatus">SYSTEM ONLINE</span>
+        </div>
     </header>
 
 
+    <!-- METRICS -->
+    <section class="metrics-grid">
 
-    <!-- =====================================================
-         SYSTEM MONITORING
-    ====================================================== -->
+        <div class="metric-card">
+            <div class="metric-title">CPU Usage</div>
+            <div class="metric-value" id="cpu">--%</div>
+            <div class="progress">
+                <div class="progress-bar" id="cpuBar"></div>
+            </div>
+        </div>
 
-    <section>
+        <div class="metric-card">
+            <div class="metric-title">Memory Usage</div>
+            <div class="metric-value" id="memory">--%</div>
+            <div class="progress">
+                <div class="progress-bar" id="memoryBar"></div>
+            </div>
+        </div>
 
-        <h2>System Monitoring</h2>
+        <div class="metric-card">
+            <div class="metric-title">Disk Usage</div>
+            <div class="metric-value" id="disk">--%</div>
+            <div class="progress">
+                <div class="progress-bar" id="diskBar"></div>
+            </div>
+        </div>
+
+        <div class="metric-card risk-card">
+            <div class="metric-title">Current Risk</div>
+            <div class="metric-value" id="risk">--</div>
+            <div id="riskDescription">
+                Waiting for analysis...
+            </div>
+        </div>
+
+    </section>
 
 
-        <div class="cards">
+    <!-- AI ANALYSIS -->
+    <section class="section-card">
+
+        <div class="section-header">
+            <h2>AI Analysis Engine</h2>
+            <span class="badge" id="aiStatus">WAITING</span>
+        </div>
+
+        <div class="analysis-grid">
+
+            <div class="analysis-item">
+                <span>AI Status</span>
+                <strong id="aiStatusText">--</strong>
+            </div>
+
+            <div class="analysis-item">
+                <span>Anomaly Score</span>
+                <strong id="aiScore">--</strong>
+            </div>
+
+            <div class="analysis-item">
+                <span>Incident Score</span>
+                <strong id="incidentScore">--</strong>
+            </div>
+
+            <div class="analysis-item">
+                <span>Resource Risk</span>
+                <strong id="resourceRisk">--</strong>
+            </div>
+
+        </div>
+
+        <div class="problem-box">
+            <span>Detected Problem</span>
+            <strong id="problem">No problem detected</strong>
+        </div>
+
+    </section>
 
 
-            <div class="card">
+    <!-- HEALTH + HEALING -->
+    <section class="two-column">
 
-                <h3>CPU Usage</h3>
+        <!-- HEALTH -->
+        <div class="section-card">
 
-                <p id="cpu">
-                    --%
-                </p>
+            <div class="section-header">
+                <h2>Service Health</h2>
+                <span class="badge" id="healthBadge">CHECKING</span>
+            </div>
+
+            <div class="health-content">
+
+                <div class="health-icon" id="healthIcon">
+                    ●
+                </div>
+
+                <div>
+                    <h3 id="healthStatus">Checking...</h3>
+                    <p id="healthMessage">
+                        Checking application health
+                    </p>
+                </div>
 
             </div>
 
+        </div>
 
-            <div class="card">
 
-                <h3>Memory Usage</h3>
+        <!-- SELF HEALING -->
+        <div class="section-card">
 
-                <p id="memory">
-                    --%
-                </p>
+            <div class="section-header">
+                <h2>Self-Healing Engine</h2>
+                <span class="badge" id="healingStatus">
+                    READY
+                </span>
+            </div>
+
+            <div class="healing-info">
+
+                <div>
+                    <span>Recommended Action</span>
+                    <strong id="recommendedAction">
+                        --
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Last Recovery</span>
+                    <strong id="recoveryStatus">
+                        --
+                    </strong>
+                </div>
 
             </div>
 
+            <button class="primary-button"
+                    onclick="runHealing()">
+                Run Self-Healing
+            </button>
 
-            <div class="card">
-
-                <h3>Disk Usage</h3>
-
-                <p id="disk">
-                    --%
-                </p>
-
+            <div id="healingMessage"
+                 class="message-box">
+                System ready.
             </div>
-
-
-            <div class="card">
-
-                <h3>Risk Level</h3>
-
-                <p id="risk">
-                    --
-                </p>
-
-            </div>
-
 
         </div>
 
     </section>
 
 
+    <!-- FAILURE SIMULATION -->
+    <section class="section-card">
 
-    <!-- =====================================================
-         AI ANALYSIS
-    ====================================================== -->
+        <div class="section-header">
+            <h2>Controlled Failure Simulation</h2>
 
-    <section class="panel">
-
-        <h2>
-            🤖 AI Analysis
-        </h2>
-
-
-        <div class="information">
-
-            <p>
-
-                AI Status:
-
-                <strong id="ai-status">
-                    --
-                </strong>
-
-            </p>
-
-
-            <p>
-
-                AI Anomaly Score:
-
-                <strong id="ai-score">
-                    --
-                </strong>
-
-            </p>
-
-
-            <p>
-
-                Detected Problem:
-
-                <strong id="problem">
-                    --
-                </strong>
-
-            </p>
-
+            <span class="simulation-status"
+                  id="simulationStatus">
+                NORMAL
+            </span>
         </div>
 
-    </section>
-
-
-
-    <!-- =====================================================
-         SERVICE HEALTH
-    ====================================================== -->
-
-    <section class="panel">
-
-        <h2>
-            ❤️ Service Health
-        </h2>
-
-
-        <p>
-
-            Service Status:
-
-            <strong id="service-health">
-                Checking...
-            </strong>
-
+        <p class="section-description">
+            Safely simulate different system conditions for testing
+            the AI reliability and recovery engine.
         </p>
 
+        <div class="simulation-buttons">
 
-        <p id="health-message">
+            <button onclick="simulateRisk('MEDIUM')">
+                Medium Risk
+            </button>
 
-            Checking recovery service...
+            <button onclick="simulateRisk('HIGH')">
+                High Risk
+            </button>
 
-        </p>
+            <button onclick="simulateRisk('CRITICAL')">
+                Critical Risk
+            </button>
 
-    </section>
+            <button onclick="simulateRisk('AI_ANOMALY')">
+                AI Anomaly
+            </button>
 
+            <button onclick="simulateFailure()">
+                Simulate Failure
+            </button>
 
-
-    <!-- =====================================================
-         SELF HEALING
-    ====================================================== -->
-
-    <section class="panel">
-
-        <h2>
-            🔧 Self-Healing Engine
-        </h2>
-
-
-        <button onclick="runHealing()">
-
-            Run Self-Healing Check
-
-        </button>
-
-
-        <div class="information">
-
-
-            <p>
-
-                Healing Action:
-
-                <strong id="action">
-                    --
-                </strong>
-
-            </p>
-
-
-            <p>
-
-                Recovery Status:
-
-                <strong id="recovery">
-                    --
-                </strong>
-
-            </p>
-
-
-            <p>
-
-                Recovery Message:
-
-                <strong id="recovery-message">
-                    --
-                </strong>
-
-            </p>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         FAILURE SIMULATION
-    ====================================================== -->
-
-    <section class="panel">
-
-        <h2>
-            🧪 Testing & Failure Simulation
-        </h2>
-
-
-        <p>
-
-            Create a controlled test failure
-            for demonstrating the self-healing system.
-
-        </p>
-
-
-        <button
-            class="danger-button"
-            onclick="simulateFailure()">
-
-            Simulate Test Failure
-
-        </button>
-
-
-        <p id="simulation-result">
-
-            No test failure created.
-
-        </p>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         INCIDENT HISTORY
-    ====================================================== -->
-
-    <section class="panel">
-
-        <div class="history-header">
-
-            <h2>
-                📋 Incident History
-            </h2>
-
-
-            <button onclick="loadIncidents()">
-
-                Refresh History
-
+            <button class="reset-button"
+                    onclick="resetSimulation()">
+                Reset System
             </button>
 
         </div>
 
+        <div id="simulationMessage"
+             class="message-box">
+            No simulation running.
+        </div>
+
+    </section>
+
+
+    <!-- INCIDENT HISTORY -->
+    <section class="section-card">
+
+        <div class="section-header">
+            <h2>Incident History</h2>
+
+            <button class="small-button"
+                    onclick="loadIncidents()">
+                Refresh
+            </button>
+        </div>
 
         <div class="table-container">
 
             <table>
 
                 <thead>
-
                     <tr>
-
                         <th>ID</th>
-
                         <th>Timestamp</th>
-
                         <th>CPU</th>
-
                         <th>Memory</th>
-
                         <th>Disk</th>
-
                         <th>Risk</th>
-
                         <th>Problem</th>
-
                         <th>Action</th>
-
                         <th>Recovery</th>
-
                     </tr>
-
                 </thead>
 
-
-                <tbody id="incident-table">
+                <tbody id="incidentTable">
 
                     <tr>
-
                         <td colspan="9">
-
-                            Loading incident history...
-
+                            Loading incidents...
                         </td>
-
                     </tr>
 
                 </tbody>
@@ -365,82 +282,183 @@
     </section>
 
 
+    <!-- FOOTER -->
+    <footer>
 
-    <!-- =====================================================
-         LAST UPDATE
-    ====================================================== -->
+        <div>
+            AI Software Reliability & Self-Healing Platform
+        </div>
 
-    <section class="last-update">
+        <div>
+            Last update:
+            <span id="lastUpdate">--</span>
+        </div>
 
-        Last dashboard update:
-
-        <strong id="last-update">
-            --
-        </strong>
-
-    </section>
-
+    </footer>
 
 </div>
 
 
-
 <script>
 
+let lastAnalysis = null;
 
-// ============================================================
-// UPDATE MAIN DASHBOARD
-// ============================================================
+
+/* ------------------------------
+   UTILITY
+------------------------------ */
+
+function setProgress(id, value) {
+
+    const element = document.getElementById(id);
+
+    if (!element) return;
+
+    const safeValue = Math.max(
+        0,
+        Math.min(100, Number(value))
+    );
+
+    element.style.width = safeValue + "%";
+}
+
+
+function riskClass(risk) {
+
+    if (!risk) return "";
+
+    return risk.toLowerCase();
+}
+
+
+function formatScore(score) {
+
+    if (score === undefined || score === null) {
+        return "--";
+    }
+
+    return Number(score).toFixed(3);
+}
+
+
+/* ------------------------------
+   DASHBOARD ANALYSIS
+------------------------------ */
 
 async function updateDashboard() {
 
     try {
 
-        const response =
-            await fetch("/api/analyze");
+        const response = await fetch("/api/analyze");
+
+        const data = await response.json();
+
+        lastAnalysis = data;
 
 
-        const data =
-            await response.json();
+        /* METRICS */
+
+        document.getElementById("cpu").textContent =
+            Number(data.cpu).toFixed(1) + "%";
+
+        document.getElementById("memory").textContent =
+            Number(data.memory).toFixed(1) + "%";
+
+        document.getElementById("disk").textContent =
+            Number(data.disk).toFixed(1) + "%";
 
 
-        document.getElementById("cpu").innerText =
-            data.cpu + "%";
+        setProgress("cpuBar", data.cpu);
+        setProgress("memoryBar", data.memory);
+        setProgress("diskBar", data.disk);
 
 
-        document.getElementById("memory").innerText =
-            data.memory + "%";
+        /* RISK */
 
+        const riskElement =
+            document.getElementById("risk");
 
-        document.getElementById("disk").innerText =
-            data.disk + "%";
-
-
-        document.getElementById("risk").innerText =
+        riskElement.textContent =
             data.risk;
 
+        riskElement.className =
+            "metric-value risk-" +
+            riskClass(data.risk);
 
-        document.getElementById("ai-status").innerText =
+        document.getElementById(
+            "riskDescription"
+        ).textContent =
+            "Incident score: " +
+            data.incident_score +
+            "/100";
+
+
+        /* AI */
+
+        document.getElementById(
+            "aiStatus"
+        ).textContent =
             data.ai_status;
 
+        document.getElementById(
+            "aiStatusText"
+        ).textContent =
+            data.ai_status;
 
-        document.getElementById("ai-score").innerText =
-            Number(data.ai_score).toFixed(4);
+        document.getElementById(
+            "aiScore"
+        ).textContent =
+            formatScore(data.ai_score);
+
+        document.getElementById(
+            "incidentScore"
+        ).textContent =
+            data.incident_score + "/100";
+
+        document.getElementById(
+            "resourceRisk"
+        ).textContent =
+            data.resource_risk;
 
 
-        document.getElementById("problem").innerText =
+        /* PROBLEM */
+
+        document.getElementById(
+            "problem"
+        ).textContent =
             data.problem;
 
 
-        const now =
-            new Date();
+        /* ACTION */
+
+        document.getElementById(
+            "recommendedAction"
+        ).textContent =
+            data.recommended_action;
 
 
-        document.getElementById("last-update").innerText =
-            now.toLocaleTimeString();
+        /* SERVICE */
+
+        if (data.service_healthy) {
+
+            document.getElementById(
+                "systemStatus"
+            ).textContent =
+                "SYSTEM ONLINE";
+
+        } else {
+
+            document.getElementById(
+                "systemStatus"
+            ).textContent =
+                "SERVICE UNHEALTHY";
+        }
 
 
-        await updateHealth();
+        document.getElementById(
+            "lastUpdate"
+        ).textContent =
+            new Date().toLocaleTimeString();
 
     }
 
@@ -451,15 +469,17 @@ async function updateDashboard() {
             error
         );
 
+        document.getElementById(
+            "systemStatus"
+        ).textContent =
+            "CONNECTION ERROR";
     }
-
 }
 
 
-
-// ============================================================
-// SERVICE HEALTH
-// ============================================================
+/* ------------------------------
+   HEALTH
+------------------------------ */
 
 async function updateHealth() {
 
@@ -468,125 +488,173 @@ async function updateHealth() {
         const response =
             await fetch("/api/health-check");
 
-
         const data =
             await response.json();
 
+        const badge =
+            document.getElementById(
+                "healthBadge"
+            );
 
-        document.getElementById(
-            "service-health"
-        ).innerText =
-            data.status;
+        const status =
+            document.getElementById(
+                "healthStatus"
+            );
 
+        const message =
+            document.getElementById(
+                "healthMessage"
+            );
 
-        document.getElementById(
-            "health-message"
-        ).innerText =
-            data.message;
+        if (data.status === "HEALTHY") {
+
+            badge.textContent = "HEALTHY";
+
+            status.textContent =
+                "Application Healthy";
+
+            message.textContent =
+                data.message;
+
+        } else {
+
+            badge.textContent = "UNHEALTHY";
+
+            status.textContent =
+                "Application Unhealthy";
+
+            message.textContent =
+                data.message;
+        }
 
     }
 
     catch (error) {
 
         document.getElementById(
-            "service-health"
-        ).innerText =
-            "UNKNOWN";
-
+            "healthBadge"
+        ).textContent =
+            "ERROR";
 
         document.getElementById(
-            "health-message"
-        ).innerText =
-            "Unable to check service health.";
-
+            "healthStatus"
+        ).textContent =
+            "Health check failed";
     }
-
 }
 
 
-
-// ============================================================
-// RUN SELF-HEALING
-// ============================================================
+/* ------------------------------
+   SELF HEALING
+------------------------------ */
 
 async function runHealing() {
 
+    const message =
+        document.getElementById(
+            "healingMessage"
+        );
+
+    const status =
+        document.getElementById(
+            "healingStatus"
+        );
+
+    message.textContent =
+        "Self-healing process running...";
+
+    status.textContent =
+        "RUNNING";
+
     try {
-
-        document.getElementById(
-            "action"
-        ).innerText =
-            "ANALYZING...";
-
-
-        document.getElementById(
-            "recovery"
-        ).innerText =
-            "PROCESSING...";
-
 
         const response =
             await fetch("/api/heal");
 
-
         const data =
             await response.json();
 
-
         document.getElementById(
-            "action"
-        ).innerText =
+            "recommendedAction"
+        ).textContent =
             data.action;
 
-
         document.getElementById(
-            "recovery"
-        ).innerText =
+            "recoveryStatus"
+        ).textContent =
             data.recovery_status;
 
-
-        document.getElementById(
-            "recovery-message"
-        ).innerText =
+        message.textContent =
             data.recovery_message;
 
+        status.textContent =
+            data.recovery_status;
 
+        await updateDashboard();
         await updateHealth();
-
-
-        // Refresh incident history
         await loadIncidents();
 
     }
 
     catch (error) {
 
-        document.getElementById(
-            "action"
-        ).innerText =
+        status.textContent =
             "ERROR";
 
+        message.textContent =
+            "Self-healing request failed.";
 
-        document.getElementById(
-            "recovery"
-        ).innerText =
-            "FAILED";
-
-
-        console.error(
-            "Healing error:",
-            error
-        );
-
+        console.error(error);
     }
-
 }
 
 
+/* ------------------------------
+   SIMULATE RISK
+------------------------------ */
 
-// ============================================================
-// FAILURE SIMULATION
-// ============================================================
+async function simulateRisk(mode) {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/simulate-risk/" +
+                mode
+            );
+
+        const data =
+            await response.json();
+
+        document.getElementById(
+            "simulationStatus"
+        ).textContent =
+            mode;
+
+        document.getElementById(
+            "simulationMessage"
+        ).textContent =
+            data.message;
+
+        await updateDashboard();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        document.getElementById(
+            "simulationMessage"
+        ).textContent =
+            "Simulation failed.";
+    }
+}
+
+
+/* ------------------------------
+   SIMULATE FAILURE
+------------------------------ */
 
 async function simulateFailure() {
 
@@ -597,111 +665,110 @@ async function simulateFailure() {
                 "/api/simulate-failure"
             );
 
-
         const data =
             await response.json();
 
+        document.getElementById(
+            "simulationStatus"
+        ).textContent =
+            "FAILURE";
 
         document.getElementById(
-            "simulation-result"
-        ).innerText =
+            "simulationMessage"
+        ).textContent =
             data.message;
 
-
         await updateDashboard();
-
-
-        await loadIncidents();
 
     }
 
     catch (error) {
 
-        document.getElementById(
-            "simulation-result"
-        ).innerText =
-            "Unable to create test failure.";
-
-
-        console.error(
-            "Simulation error:",
-            error
-        );
-
+        console.error(error);
     }
-
 }
 
 
+/* ------------------------------
+   RESET
+------------------------------ */
 
-// ============================================================
-// LOAD INCIDENT HISTORY
-// ============================================================
+async function resetSimulation() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/reset-simulation"
+            );
+
+        const data =
+            await response.json();
+
+        document.getElementById(
+            "simulationStatus"
+        ).textContent =
+            "NORMAL";
+
+        document.getElementById(
+            "simulationMessage"
+        ).textContent =
+            data.message;
+
+        await updateDashboard();
+        await updateHealth();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+    }
+}
+
+
+/* ------------------------------
+   INCIDENT HISTORY
+------------------------------ */
 
 async function loadIncidents() {
 
     try {
 
         const response =
-            await fetch("/api/incidents");
-
+            await fetch(
+                "/api/incidents"
+            );
 
         const incidents =
             await response.json();
 
-
         const table =
             document.getElementById(
-                "incident-table"
+                "incidentTable"
             );
 
-
-        // No incidents yet
-
-        if (
-            incidents.length === 0
-        ) {
+        if (!incidents.length) {
 
             table.innerHTML = `
-
                 <tr>
-
                     <td colspan="9">
-
                         No incidents recorded yet.
-
                     </td>
-
                 </tr>
-
             `;
 
             return;
-
         }
 
 
+        table.innerHTML =
+            incidents.map(
+                incident => `
 
-        // Clear existing table
+                <tr>
 
-        table.innerHTML = "";
-
-
-
-        // Display incidents
-
-        incidents.forEach(
-            function(incident) {
-
-                const row =
-                    document.createElement("tr");
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${incident.id}
-                    </td>
+                    <td>${incident.id}</td>
 
                     <td>
                         ${incident.timestamp}
@@ -726,9 +793,11 @@ async function loadIncidents() {
                     </td>
 
                     <td>
-                        <strong>
+                        <span class="table-risk risk-${riskClass(
+                            incident.risk_level
+                        )}">
                             ${incident.risk_level}
-                        </strong>
+                        </span>
                     </td>
 
                     <td>
@@ -743,60 +812,59 @@ async function loadIncidents() {
                         ${incident.recovery_status}
                     </td>
 
-                `;
+                </tr>
 
-
-                table.appendChild(row);
-
-            }
-        );
+            `
+            ).join("");
 
     }
 
     catch (error) {
 
         console.error(
-            "Incident history error:",
+            "Incident loading error:",
             error
         );
-
     }
+}
+
+
+/* ------------------------------
+   START DASHBOARD
+------------------------------ */
+
+async function startDashboard() {
+
+    await updateDashboard();
+    await updateHealth();
+    await loadIncidents();
 
 }
 
 
+/* INITIAL LOAD */
 
-// ============================================================
-// INITIAL LOAD
-// ============================================================
-
-updateDashboard();
-
-loadIncidents();
+startDashboard();
 
 
-
-// ============================================================
-// AUTOMATIC DASHBOARD REFRESH
-// ============================================================
+/* AUTO REFRESH */
 
 setInterval(
     updateDashboard,
     5000
 );
 
-
-// Refresh incident history every 10 seconds
+setInterval(
+    updateHealth,
+    5000
+);
 
 setInterval(
     loadIncidents,
     10000
 );
 
-
 </script>
 
-
 </body>
-
 </html>

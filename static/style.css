@@ -1,381 +1,429 @@
-/* ============================================================
-   GENERAL PAGE
-============================================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
-
-    font-family: Arial, sans-serif;
-
-    margin: 0;
-
-    background: #f4f6f8;
-
-    color: #222;
-
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
 }
-
-
-/* ============================================================
-   MAIN CONTAINER
-============================================================ */
 
 .container {
-
-    width: 90%;
-
-    max-width: 1400px;
-
-    margin: 40px auto;
-
+    width: 94%;
+    max-width: 1450px;
+    margin: auto;
+    padding: 25px 0 40px;
 }
 
 
-/* ============================================================
-   HEADER
-============================================================ */
+/* HEADER */
 
-header {
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111827;
+    color: white;
+    padding: 28px 32px;
+    border-radius: 16px;
+    margin-bottom: 22px;
+}
 
-    text-align: center;
+.header h1 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
 
-    margin-bottom: 35px;
+.header p {
+    color: #cbd5e1;
+    font-size: 14px;
+}
 
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
 }
 
 
-header h1 {
+/* METRICS */
 
-    font-size: 32px;
-
-    margin-bottom: 10px;
-
-}
-
-
-.subtitle {
-
-    color: #666;
-
-    font-size: 16px;
-
-}
-
-
-/* ============================================================
-   SECTION
-============================================================ */
-
-section {
-
-    margin-bottom: 25px;
-
-}
-
-
-section > h2 {
-
-    margin-bottom: 15px;
-
-}
-
-
-/* ============================================================
-   SYSTEM CARDS
-============================================================ */
-
-.cards {
-
+.metrics-grid {
     display: grid;
-
     grid-template-columns:
         repeat(4, 1fr);
-
-    gap: 20px;
-
+    gap: 18px;
+    margin-bottom: 20px;
 }
 
-
-/* ============================================================
-   CARD
-============================================================ */
-
-.card {
-
+.metric-card {
     background: white;
-
-    padding: 25px;
-
-    text-align: center;
-
-    border-radius: 12px;
-
+    padding: 24px;
+    border-radius: 14px;
     box-shadow:
-        0 2px 8px
-        rgba(0, 0, 0, 0.10);
-
+        0 4px 15px rgba(
+            15,
+            23,
+            42,
+            0.06
+        );
 }
 
-
-.card h3 {
-
-    margin-bottom: 15px;
-
-    color: #555;
-
+.metric-title {
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-
-.card p {
-
+.metric-value {
     font-size: 30px;
+    font-weight: 800;
+    margin: 12px 0;
+}
 
-    font-weight: bold;
+.risk-low {
+    color: #16a34a;
+}
 
-    margin: 10px 0;
+.risk-medium {
+    color: #ca8a04;
+}
 
+.risk-high {
+    color: #ea580c;
+}
+
+.risk-critical {
+    color: #dc2626;
+}
+
+.progress {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: width 0.5s ease;
+}
+
+#riskDescription {
+    color: #64748b;
+    font-size: 13px;
 }
 
 
-/* ============================================================
-   PANELS
-============================================================ */
+/* GENERAL CARDS */
 
-.panel {
-
+.section-card {
     background: white;
-
-    padding: 25px;
-
-    border-radius: 12px;
-
+    padding: 24px;
+    border-radius: 14px;
+    margin-bottom: 20px;
     box-shadow:
-        0 2px 8px
-        rgba(0, 0, 0, 0.10);
+        0 4px 15px rgba(
+            15,
+            23,
+            42,
+            0.06
+        );
+}
 
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 19px;
+}
+
+.section-description {
+    color: #64748b;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
 
-.panel h2 {
+/* AI */
 
-    margin-top: 0;
+.analysis-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+    gap: 15px;
+}
 
+.analysis-item {
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 10px;
+}
+
+.analysis-item span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.analysis-item strong {
+    font-size: 18px;
+}
+
+.problem-box {
+    margin-top: 18px;
+    padding: 17px;
+    border-left: 4px solid #2563eb;
+    background: #eff6ff;
+    border-radius: 8px;
+}
+
+.problem-box span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.problem-box strong {
+    font-size: 14px;
 }
 
 
-/* ============================================================
-   INFORMATION
-============================================================ */
+/* TWO COLUMNS */
 
-.information {
-
-    line-height: 1.8;
-
+.two-column {
+    display: grid;
+    grid-template-columns:
+        1fr 1fr;
+    gap: 20px;
 }
 
 
-.information strong {
+/* HEALTH */
 
-    font-weight: bold;
+.health-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
 
+.health-icon {
+    font-size: 42px;
+    color: #16a34a;
+}
+
+.health-content h3 {
+    margin-bottom: 5px;
+}
+
+.health-content p {
+    color: #64748b;
+    font-size: 13px;
 }
 
 
-/* ============================================================
-   BUTTON
-============================================================ */
+/* BADGES */
+
+.badge,
+.simulation-status,
+.table-risk {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    background: #e2e8f0;
+    color: #334155;
+}
+
+
+/* HEALING */
+
+.healing-info {
+    display: grid;
+    grid-template-columns:
+        1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.healing-info div {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 9px;
+}
+
+.healing-info span {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.healing-info strong {
+    font-size: 14px;
+}
+
+
+/* BUTTONS */
 
 button {
-
-    padding: 12px 20px;
-
     border: none;
-
-    border-radius: 7px;
-
     cursor: pointer;
-
-    font-size: 16px;
-
-    background: #222;
-
-    color: white;
-
-    margin: 10px 0;
-
+    border-radius: 8px;
+    padding: 11px 17px;
+    font-weight: 600;
+    transition: 0.2s;
 }
-
 
 button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
 
-    opacity: 0.85;
+.primary-button {
+    width: 100%;
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+}
 
+.small-button {
+    background: #e2e8f0;
+    color: #334155;
 }
 
 
-/* ============================================================
-   DANGER BUTTON
-============================================================ */
+/* SIMULATION */
 
-.danger-button {
-
-    background: #b00020;
-
-}
-
-
-/* ============================================================
-   INCIDENT HISTORY HEADER
-============================================================ */
-
-.history-header {
-
+.simulation-buttons {
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-    justify-content: space-between;
+.simulation-buttons button {
+    background: #1e293b;
+    color: white;
+}
 
-    align-items: center;
+.simulation-buttons .reset-button {
+    background: #dc2626;
+}
 
-    gap: 20px;
-
+.message-box {
+    margin-top: 15px;
+    background: #f8fafc;
+    padding: 13px;
+    border-radius: 8px;
+    color: #475569;
+    font-size: 13px;
 }
 
 
-.history-header h2 {
-
-    margin: 0;
-
-}
-
-
-/* ============================================================
-   INCIDENT TABLE
-============================================================ */
+/* TABLE */
 
 .table-container {
-
-    width: 100%;
-
     overflow-x: auto;
-
-    margin-top: 20px;
-
 }
-
 
 table {
-
     width: 100%;
-
     border-collapse: collapse;
-
-    min-width: 1000px;
-
+    min-width: 950px;
 }
-
-
-thead {
-
-    background: #222;
-
-    color: white;
-
-}
-
 
 th {
-
-    padding: 14px;
-
+    background: #f8fafc;
     text-align: left;
-
-    white-space: nowrap;
-
+    padding: 13px;
+    font-size: 12px;
+    color: #64748b;
 }
-
 
 td {
+    padding: 13px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 12px;
+}
 
-    padding: 12px;
-
-    border-bottom: 1px solid #ddd;
-
-    white-space: nowrap;
-
+.table-risk {
+    padding: 5px 8px;
 }
 
 
-tbody tr:hover {
+/* FOOTER */
 
-    background: #f5f5f5;
-
+footer {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 12px;
+    padding: 15px 5px;
 }
 
 
-/* ============================================================
-   LAST UPDATE
-============================================================ */
+/* RESPONSIVE */
 
-.last-update {
+@media (max-width: 1000px) {
 
-    text-align: center;
-
-    color: #666;
-
-    font-size: 14px;
-
-    margin-top: 30px;
-
-    margin-bottom: 30px;
-
-}
-
-
-/* ============================================================
-   RESPONSIVE DESIGN
-============================================================ */
-
-@media (max-width: 900px) {
-
-    .cards {
-
+    .metrics-grid {
         grid-template-columns:
             repeat(2, 1fr);
-
     }
 
+    .analysis-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
-    .cards {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .container {
-
-        width: 94%;
-
-    }
-
-
-    header h1 {
-
-        font-size: 24px;
-
-    }
-
-
-    .history-header {
-
+    .header {
         flex-direction: column;
-
         align-items: flex-start;
-
+        gap: 15px;
     }
 
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .healing-info {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 8px;
+    }
 }
